@@ -14,9 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+---
+os:
+  - linux
+  - linux-ppc64le
 
 sudo: required
-group: deprecated-2017Q3
 language: scala
 services:
   - docker
@@ -48,17 +51,22 @@ script:
 
 deploy:
 - provider: script
-  script: "./tools/travis/publish.sh openwhisk ${TRAVIS_TAG%@*} ${TRAVIS_TAG##*@}"
+  #script: "./tools/travis/publish.sh openwhisk ${TRAVIS_TAG%@*} ${TRAVIS_TAG##*@}"
+  script: "/bin/true"
   skip_cleanup: true
   on:
     tags: true
     all_branches: true
 - provider: script
-  script: "./tools/travis/publish.sh openwhisk 6 master && ./tools/travis/publish.sh openwhisk 8 master"
+  #script: "./tools/travis/publish.sh openwhisk 6 master && ./tools/travis/publish.sh openwhisk 8 master"
+  script: "/bin/true"
   on:
     branch: master
 
 env:
+  matrix:
+    - NODEJS_VERSION=6
+    - NODEJS_VERSION=8
   global:
   #  --- begin: DOCKER_REGISTRY (defaults to docker.io)
   #      + for jonpspri/incubator-openwhisk-runtime-nodejs
