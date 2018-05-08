@@ -40,7 +40,7 @@ before_install:
   #  Note: ${TRAVIS_REPO_SLUG%/*} is repository owner.
 - if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then
     for i in ./tools/travis/tls/${TRAVIS_REPO_SLUG%/*}/*/*.pem.gpg; do
-      echo "${multiarch_encryption_pwd}" | gpg --passphrase-fd 0 "$i";
+      echo "${multiarch_encryption_pwd}" | sudo gpg --passphrase-fd 0 "$i";
     done && cp -R ./tools/travis/tls/${TRAVIS_REPO_SLUG%/*} ./tls;
   fi
 - "./tools/travis/setup.sh"
